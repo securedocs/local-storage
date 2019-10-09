@@ -2,7 +2,14 @@
 
 var stub = require('./stub');
 var tracking = require('./tracking');
-var ls = 'localStorage' in global && global.localStorage ? global.localStorage : stub;
+var ls;
+
+// Added the try/catch and typeof check as it seems some IE Edge/IE11 browsers will raise exceptions when accessing it due to user profile security settings
+try {
+  ls = typeof localStorage === "undefined" ? stub : ('localStorage' in global && global.localStorage ? global.localStorage : stub);
+} catch (e) {
+  ls = stub;
+}
 
 function accessor (key, value) {
   if (arguments.length === 1) {
