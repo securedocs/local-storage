@@ -119,7 +119,7 @@ function change (e) {
   }
 
   function fire (listener) {
-    listener(JSON.parse(e.newValue), JSON.parse(e.oldValue), e.url || e.uri);
+    listener(JSON.parse(e.newValue === "" ? null : e.newValue), JSON.parse(e.oldValue === "" ? null : e.oldValue), e.url || e.uri);
   }
 }
 
